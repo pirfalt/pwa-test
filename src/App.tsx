@@ -2,13 +2,14 @@ import { useEffect, useState } from "react";
 import logo from "./checkbox.svg";
 import classes from "./App.module.css";
 import db, { tasksKey } from "./db";
+import { Link, Outlet } from "react-router-dom";
 
 function App() {
   return (
     <div className={classes["App"]}>
       <Header />
       <main>
-        <TodoList />
+        <Outlet />
       </main>
       <Footer />
     </div>
@@ -19,14 +20,16 @@ export default App;
 
 function Header() {
   return (
-    <header className={classes["App-header"]}>
-      <h1>PWA test</h1>
-      <img src={logo} className={classes["App-logo"]} alt="logo" />
-    </header>
+    <Link to="/">
+      <header className={classes["App-header"]}>
+        <h1>PWA test</h1>
+        <img src={logo} className={classes["App-logo"]} alt="logo" />
+      </header>
+    </Link>
   );
 }
 
-function TodoList() {
+export function TodoList() {
   type TodoItem = {
     text: string;
     checked: boolean;
@@ -103,18 +106,18 @@ function TodoList() {
 function Footer() {
   return (
     <footer className={classes["Footer"]}>
-      <div className={classes["Footer-item"]}>
+      <Link to="/" className={classes["Footer-item"]}>
         <img src={logo} alt="logo" />
-        <span>history</span>
-      </div>
-      <div className={classes["Footer-item"]}>
+        <span>todo</span>
+      </Link>
+      <Link to="/sync" className={classes["Footer-item"]}>
         <img src={logo} alt="logo" />
         <span>sync</span>
-      </div>
-      <div className={classes["Footer-item"]}>
+      </Link>
+      <Link to="/history" className={classes["Footer-item"]}>
         <img src={logo} alt="logo" />
-        <span>other</span>
-      </div>
+        <span>history</span>
+      </Link>
     </footer>
   );
 }
