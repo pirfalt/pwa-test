@@ -8,10 +8,12 @@ import Sync from "./sync/Sync";
 import History from "./history/History";
 import { init as dbInit } from "./db";
 
+const pathname = window.location.pathname;
+
 dbInit().then(() => {
   ReactDOM.render(
     <React.StrictMode>
-      <BrowserRouter>
+      <BrowserRouter basename={pathname}>
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<TodoList />} />
