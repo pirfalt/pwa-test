@@ -2,7 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
-import App, { TodoList } from "./App";
+import App from "./App";
+import TodoList from "./todo/TodoList";
 import { init as dbInit } from "./db";
 
 dbInit().then(() => {
