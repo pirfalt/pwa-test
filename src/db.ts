@@ -12,6 +12,9 @@ export default db;
 export const tasksKey = "tasks";
 
 export async function init() {
+  const currentTasks = await db.getItem(tasksKey);
+  if (currentTasks != null) return;
+
   const initialTasks = [
     {
       text: "Build tools",
