@@ -4,6 +4,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import TodoList from "./todo/TodoList";
+import Sync from "./sync/Sync";
+import History from "./history/History";
 import { init as dbInit } from "./db";
 
 dbInit().then(() => {
@@ -13,8 +15,8 @@ dbInit().then(() => {
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<TodoList />} />
-            <Route path="/sync" element={<div>sync</div>} />
-            <Route path="/history" element={<div>history</div>} />
+            <Route path="/sync" element={<Sync />} />
+            <Route path="/history" element={<History />} />
           </Route>
         </Routes>
       </BrowserRouter>
