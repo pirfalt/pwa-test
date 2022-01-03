@@ -21,11 +21,6 @@
 npm install
 ```
 
-```sh
-# Only required for testing the production build locally
-npm install -g serve
-```
-
 ### Start
 
 ```sh
@@ -38,7 +33,8 @@ npm run dev
 npm run build
 
 # Test prod locally
-serve -l 8000 docs
+#  Alt. `serve -l 8000 docs`
+npm run preview
 ```
 
 ### Deploy
