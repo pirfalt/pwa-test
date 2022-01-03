@@ -42,10 +42,17 @@ npm run preview
 Since we are using gh-pages, every push is a deployment. However only the `/docs` folder is served. Therefor a production build is required before the push.
 
 ```sh
+# Only deploy whats committed
+git add .
+git stash
+# Build
 npm run build
+# Commit and deploy the build
 git add docs
 git commit -m "Deploy production build"
 git push
+# Reset working files
+git stash pop
 ```
 
 ## Live site
