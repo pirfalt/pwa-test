@@ -52,8 +52,8 @@ export default function TodoList() {
       <ol className={classes["Todo-list"]}>
         {tasks.map((item, i) => {
           return (
-            <li key={i}>
-              <label>
+            <li key={i} className={classes["Todo-item"]}>
+              <label className={classes["Todo-row"]}>
                 <input
                   type="checkbox"
                   name={`${i}_${item.text}`}
@@ -65,13 +65,15 @@ export default function TodoList() {
             </li>
           );
         })}
+        <li className={classes["Todo-item"]}>
+          <input
+            className={classes["Todo-input"]}
+            name="new-item"
+            type="text"
+            placeholder="New todo item..."
+          />
+        </li>
       </ol>
-      <input
-        className={classes["Todo-input"]}
-        name="new-item"
-        type="text"
-        placeholder="New todo item..."
-      />
     </form>
   );
 }
