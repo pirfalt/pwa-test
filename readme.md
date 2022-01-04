@@ -46,7 +46,7 @@ Since we are using gh-pages, every push is a deployment. However only the `/docs
 git add .
 git stash
 # Build
-npm run build
+npm run build -- --base '/pwa-test/'
 # Commit and deploy the build
 git add docs
 git commit -m "Deploy production build"

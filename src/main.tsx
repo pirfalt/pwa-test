@@ -4,19 +4,19 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import TodoList from "./todo/TodoList";
+import TodoItem from "./todo/TodoItem";
 import Sync from "./sync/Sync";
 import History from "./history/History";
 import { init as dbInit } from "./db";
 
-const pathname = window.location.pathname;
-
 dbInit().then(() => {
   ReactDOM.render(
     <React.StrictMode>
-      <BrowserRouter basename={pathname}>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<TodoList />} />
+            <Route path="/:todoId" element={<TodoItem />} />
             <Route path="/sync" element={<Sync />} />
             <Route path="/history" element={<History />} />
           </Route>
