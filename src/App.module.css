@@ -1,31 +1,38 @@
 .App {
+  --spacer-block: 0.75rem;
+  --spacer-small: 0.25rem;
+  --spacer-large: 1rem;
+  --ios-footer: 20px;
+
   text-align: left;
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: var(--background);
+  color: var(--foreground);
 }
 
 .Header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: black;
-  color: white;
-  padding: 0 1rem;
+  padding: var(--spacer-block) var(--spacer-large);
+  border-bottom: 1px solid var(--foreground);
 }
 
 .App main {
   flex-grow: 1;
-  padding: 0.25rem;
+  padding: var(--spacer-small);
   overflow: scroll;
 }
 
 .Footer {
-  padding: 0.8rem;
+  padding: var(--spacer-large);
+  padding-top: var(--spacer-block);
+  padding-bottom: calc(var(--spacer-block) + var(--ios-footer));
   display: flex;
   justify-content: space-around;
-  background-color: black;
-  color: white;
+  border-top: 1px solid var(--foreground);
 }
 
 .Footer .Footer-item {
