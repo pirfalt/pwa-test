@@ -3,15 +3,36 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/pwa-test/assets/favicon.17e50649.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
     <title>PWA App</title>
 
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <link rel="manifest" href="/pwa-test/manifest.json" />
+    <!-- Status bar color -->
+    <meta name="theme-color" content="orange" />
+    <!-- Duplicate icon for iOS who is not using the "manifest" -->
     <link rel="apple-touch-icon" href="/pwa-test/icons/ios/1024.png" />
+
+    <!--
+    iOS specific stuff
+    https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariHTMLRef/Articles/MetaTags.html
+    https://itnext.io/make-your-pwas-look-handsome-on-ios-fd8fdfcd5777
+    https://firt.dev/ios-14.5#status-bar-change
+    https://codeburst.io/progressive-web-apps-customize-status-bar-23c4b2de590f
+    https://stackoverflow.com/questions/39749015/apple-mobile-web-app-status-bar-style-in-ios-10
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
     <script type="module" crossorigin src="/pwa-test/assets/index.4f622c20.js"></script>
     <link rel="modulepreload" href="/pwa-test/assets/vendor.56e6658f.js">
-    <link rel="stylesheet" href="/pwa-test/assets/index.b160f758.css">
+    <link rel="stylesheet" href="/pwa-test/assets/index.93b3826f.css">
   </head>
   <body>
     <div id="root"></div>
