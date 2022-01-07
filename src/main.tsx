@@ -6,7 +6,7 @@ import App from "./App";
 import TodoList from "./todo/TodoList";
 import TodoItem from "./todo/TodoItem";
 import Sync from "./sync/Sync";
-import History from "./history/History";
+import About from "./about/About";
 import { init as dbInit } from "./db";
 
 dbInit().then(() => {
@@ -18,7 +18,7 @@ dbInit().then(() => {
             <Route index element={<TodoList />} />
             <Route path="/:todoId" element={<TodoItem />} />
             <Route path="/sync" element={<Sync />} />
-            <Route path="/history" element={<History />} />
+            <Route path="/about" element={<About />} />
           </Route>
         </Routes>
       </BrowserRouter>

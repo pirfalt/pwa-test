@@ -38,9 +38,9 @@ function Footer() {
         <img src={logo} alt="logo" />
         <span>sync</span>
       </Link>
-      <Link to="/history" className={classes["Footer-item"]}>
+      <Link to="/about" className={classes["Footer-item"]}>
         <img src={logo} alt="logo" />
-        <span>history</span>
+        <span>about</span>
       </Link>
     </footer>
   );
