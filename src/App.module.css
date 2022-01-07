@@ -2,7 +2,6 @@
   --spacer-block: 0.75rem;
   --spacer-small: 0.25rem;
   --spacer-large: 1rem;
-  --ios-footer: 20px;
 
   text-align: left;
   display: flex;
@@ -29,7 +28,7 @@
 .Footer {
   padding: var(--spacer-large);
   padding-top: var(--spacer-block);
-  padding-bottom: calc(var(--spacer-block) + var(--ios-footer));
+  padding-bottom: calc(var(--spacer-block) + env(safe-area-inset-bottom));
   display: flex;
   justify-content: space-around;
   border-top: 1px solid var(--foreground);
