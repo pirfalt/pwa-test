@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import useDevice from "../hooks/useDevice";
 import classes from "./About.module.css";
 
 export default function () {
@@ -11,52 +12,23 @@ export default function () {
 }
 
 function Camera() {
-  const supported = "mediaDevices" in navigator;
-
+  const { devices, activeDeviceIds, setConstraints, stream, error } =
+    useDevice();
   const videoRef = useRef<HTMLVideoElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const [devices, setDevices] = useState<MediaDeviceInfo[]>([]);
-  const [selectedDeviceId, setSelectedDeviceId] = useState<string>();
 
-  // Device list
+  const videoDevices = devices.filter((d) => d.kind == "videoinput");
+  const activeDevice = videoDevices.find((d) =>
+    activeDeviceIds?.includes(d.deviceId)
+  );
+
+  // Connect video src to stream
   useEffect(() => {
-    if (!supported) return;
+    if (stream == null) return;
+    if (videoRef.current == null) return;
 
-    const setVideoDeviceList = () => {
-      navigator.mediaDevices
-        .enumerateDevices()
-        .then((devices) => devices.filter((d) => d.kind == "videoinput"))
-        .then(setDevices)
-        .catch(console.error);
-    };
-
-    // Initial state
-    setVideoDeviceList();
-
-    // On change
-    navigator.mediaDevices.addEventListener("devicechange", setVideoDeviceList);
-    return () => {
-      navigator.mediaDevices.removeEventListener(
-        "devicechange",
-        setVideoDeviceList
-      );
-    };
-  }, []);
-
-  // Video
-  useEffect(() => {
-    if (!supported) return;
-
-    const video = videoRef.current!;
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { deviceId: selectedDeviceId },
-      })
-      .then((stream) => {
-        video.srcObject = stream;
-      })
-      .catch(console.error);
-  }, [selectedDeviceId]);
+    videoRef.current.srcObject = stream;
+  }, [stream]);
 
   // Capture video source to canvas
   const capture = () => {
@@ -66,30 +38,48 @@ function Camera() {
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    console.debug({ canvas, video });
     const context = canvas.getContext("2d");
     context?.drawImage(video, 0, 0, canvas.width, canvas.height);
   };
 
+  // Error
+  if (error) {
+    return <p>{error?.toString()}</p>;
+  }
+  // Fallback
+  const supported = "mediaDevices" in navigator;
   if (!supported) {
     return (
       <>
         <p>Direct camera usage not supported, using input fallback.</p>
+        <input type="file" accept="image/*" capture="environment" />
         <input type="file" accept="image/*" />
       </>
     );
   }
-
   return (
     <>
-      <select onChange={(e) => setSelectedDeviceId(e.target.value)}>
-        {devices.map((d) => (
+      <select
+        value={activeDevice?.deviceId}
+        onChange={(e) =>
+          setConstraints({
+            video: { deviceId: e.target.value },
+            audio: false,
+          })
+        }
+      >
+        {videoDevices.map((d) => (
           <option key={d.deviceId} value={d.deviceId}>
             {d.label}
           </option>
         ))}
       </select>
-      <video ref={videoRef} className={classes["video"]} autoPlay />
+      <video
+        ref={videoRef}
+        className={classes["video"]}
+        autoPlay
+        playsInline={true}
+      />
       <canvas ref={canvasRef} className={classes["canvas"]} />
       <button onClick={capture}>Capture</button>
     </>
