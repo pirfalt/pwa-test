@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import useDevice from "../hooks/useDevice";
 import classes from "./About.module.css";
 
@@ -12,10 +12,14 @@ export default function () {
 }
 
 function Camera() {
-  const { devices, activeDeviceIds, setConstraints, stream, error } =
-    useDevice();
+  const { devices, activeDeviceIds, setConstraints, stream, error } = useDevice(
+    {
+      video: { facingMode: "user" },
+      audio: false,
+    }
+  );
   const videoRef = useRef<HTMLVideoElement>(null);
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const canvasRef = useRef(document.createElement("canvas"));
 
   const videoDevices = devices.filter((d) => d.kind == "videoinput");
   const activeDevice = videoDevices.find((d) =>
@@ -31,15 +35,19 @@ function Camera() {
   }, [stream]);
 
   // Capture video source to canvas
-  const capture = () => {
-    const canvas = canvasRef.current!;
+  const [picture, setPicture] = useState<any>();
+  const capture = async () => {
     const video = videoRef.current!;
 
+    const canvas = canvasRef.current;
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
     const context = canvas.getContext("2d");
     context?.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+    const blob = await canvasToBlob(canvas, "image/png");
+    setPicture(URL.createObjectURL(blob));
   };
 
   // Error
@@ -80,8 +88,24 @@ function Camera() {
         autoPlay
         playsInline={true}
       />
-      <canvas ref={canvasRef} className={classes["canvas"]} />
       <button onClick={capture}>Capture</button>
+      <img src={picture} />
     </>
   );
 }
+
+const canvasToBlob = (
+  canvas: HTMLCanvasElement,
+  type?: string,
+  quality?: any
+) =>
+  new Promise<Blob>((res, rej) =>
+    canvas.toBlob(
+      (blob) => {
+        if (blob == null) return rej(new Error("Empty Blob"));
+        res(blob);
+      },
+      type,
+      quality
+    )
+  );
