@@ -22,7 +22,7 @@
 .App main {
   flex-grow: 1;
   padding: var(--spacer-small);
-  overflow: scroll;
+  overflow-y: scroll;
 }
 
 .Footer {

@@ -1,4 +1,6 @@
 .Todo-list {
+  --button-width: 6rem;
+
   display: flex;
   flex-direction: column;
   margin: 0;
@@ -7,25 +9,52 @@
   padding-inline-start: 0;
 }
 
-.Todo-item {
+.Todo-list-item {
   background-color: var(--brand);
   border-radius: 5px;
-  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
 }
 
-.Todo-item .Todo-row {
+/* Todo row */
+.Todo-row-box {
+  display: flex;
+  gap: var(--spacer-small);
+  justify-content: space-between;
+  width: calc(100% + var(--button-width));
+}
+
+.Todo-row-label {
+  scroll-snap-align: end;
   flex-grow: 1;
   padding: var(--spacer-small);
 }
 
-.Todo-item input[type="checkbox"] {
+.Todo-row-checkbox {
   background-color: var(--brand);
   margin: var(--spacer-small);
 }
 
-.Todo-item .Todo-input {
+.Todo-row-button {
+  scroll-snap-align: end;
+  width: var(--button-width);
+}
+
+/* Input row */
+.Todo-input-box {
+  display: flex;
+  gap: var(--spacer-small);
+  width: 100%;
+  justify-content: space-between;
+}
+
+.Todo-input-text {
   flex-grow: 1;
   padding: var(--spacer-small);
   border-radius: 5px;
   border-width: thin;
+}
+
+.Todo-input-button {
+  width: var(--button-width);
 }

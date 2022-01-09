@@ -2,11 +2,18 @@ import { useEffect, useState } from "react";
 import classes from "./TodoList.module.css";
 import db, { tasksKey } from "../db";
 
+const createClassName =
+  (classes: Record<string, string>) =>
+  (...classNames: string[]) =>
+    classNames.map((k) => classes[k]).join(" ");
+
+const c = createClassName(classes);
+
+type TodoItem = {
+  text: string;
+  checked: boolean;
+};
 export default function TodoList() {
-  type TodoItem = {
-    text: string;
-    checked: boolean;
-  };
   const [tasks, setTasks] = useState<TodoItem[]>([]);
 
   useEffect(() => {
@@ -30,50 +37,76 @@ export default function TodoList() {
     const next = [...tasks, item];
     setTasks(next);
   };
+  const removeItem = (i: number) => {
+    const next = tasks.filter((_v, ti) => ti != i);
+    setTasks(next);
+  };
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        const selectorQuery = `.${classes["Todo-input"]}`;
-        const itemInputElement = e.currentTarget.querySelector(selectorQuery);
-        if (itemInputElement != null) {
-          const inputElement = itemInputElement as any;
-
-          const newText = inputElement.value;
-          inputElement.value = "";
-          addItem({
-            text: newText,
-            checked: false,
-          });
-        }
-      }}
-    >
-      <ol className={classes["Todo-list"]}>
-        {tasks.map((item, i) => {
-          return (
-            <li key={i} className={classes["Todo-item"]}>
-              <label className={classes["Todo-row"]}>
+    <ol className={classes["Todo-list"]}>
+      {tasks.map((item, i) => {
+        return (
+          <li key={i} className={classes["Todo-list-item"]}>
+            <div className={classes["Todo-row-box"]}>
+              <label className={classes["Todo-row-label"]}>
                 <input
                   type="checkbox"
+                  className={classes["Todo-row-checkbox"]}
                   name={`${i}_${item.text}`}
                   checked={item.checked}
                   onChange={() => checkItem(i)}
                 />
                 {item.text}
               </label>
-            </li>
-          );
-        })}
-        <li className={classes["Todo-item"]}>
-          <input
-            className={classes["Todo-input"]}
-            name="new-item"
-            type="text"
-            placeholder="New todo item..."
-          />
-        </li>
-      </ol>
-    </form>
+              <button
+                className={classes["Todo-row-button"]}
+                onClick={(e) => {
+                  e.preventDefault();
+                  removeItem(i);
+                }}
+              >
+                Remove
+              </button>
+            </div>
+          </li>
+        );
+      })}
+      <InputRow addItem={addItem} />
+    </ol>
+  );
+}
+
+function InputRow({ addItem }: { addItem: (item: TodoItem) => void }) {
+  return (
+    <li className={classes["Todo-list-item"]}>
+      <form
+        className={classes["Todo-input-box"]}
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          const data = new FormData(e.currentTarget);
+          const newItem = data.get("new-item");
+          if (newItem == null) return;
+          if (newItem instanceof File) return;
+
+          addItem({
+            text: newItem,
+            checked: false,
+          });
+
+          e.currentTarget.reset();
+        }}
+      >
+        <input
+          className={classes["Todo-input-text"]}
+          name="new-item"
+          type="text"
+          placeholder="New todo item..."
+        />
+        <button type="submit" className={classes["Todo-input-button"]}>
+          Add
+        </button>
+      </form>
+    </li>
   );
 }
