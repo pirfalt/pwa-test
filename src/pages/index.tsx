@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import classes from "./TodoList.module.css";
-import db, { tasksKey } from "../db";
+import db, { tasksKey } from "../util/db";
+import { createClassName } from "../util/util";
 
-const createClassName =
-  (classes: Record<string, string>) =>
-  (...classNames: string[]) =>
-    classNames.map((k) => classes[k]).join(" ");
+import classes from "./index.module.css";
 
 const c = createClassName(classes);
 
@@ -76,7 +73,7 @@ export default function TodoList() {
   );
 }
 
-function InputRow({ addItem }: { addItem: (item: TodoItem) => void }) {
+function InputRow(props: { addItem: (item: TodoItem) => void }) {
   return (
     <li className={classes["Todo-list-item"]}>
       <form
@@ -89,7 +86,7 @@ function InputRow({ addItem }: { addItem: (item: TodoItem) => void }) {
           if (newItem == null) return;
           if (newItem instanceof File) return;
 
-          addItem({
+          props.addItem({
             text: newItem,
             checked: false,
           });

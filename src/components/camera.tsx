@@ -1,17 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import useDevice from "../hooks/useDevice";
-import classes from "./About.module.css";
 
-export default function () {
-  return (
-    <div className={classes["root"]}>
-      <p>About</p>
-      <Camera />
-    </div>
-  );
-}
+import classes from "./camera.module.css";
 
-function Camera() {
+export default function Camera() {
   const { devices, activeDeviceIds, setConstraints, stream, error } = useDevice(
     {
       video: { facingMode: "user" },
@@ -93,7 +85,6 @@ function Camera() {
     </>
   );
 }
-
 const canvasToBlob = (
   canvas: HTMLCanvasElement,
   type?: string,

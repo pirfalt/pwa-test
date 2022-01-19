@@ -1,13 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
+import App from "./app";
+import Index from "./pages/index";
+import About from "./pages/about";
+import Sync from "./pages/sync";
+import TodoItem from "./pages/todo/[todo-id]";
+import { init as dbInit } from "./util/db";
+
 import "./index.css";
-import App from "./App";
-import TodoList from "./todo/TodoList";
-import TodoItem from "./todo/TodoItem";
-import Sync from "./sync/Sync";
-import About from "./about/About";
-import { init as dbInit } from "./db";
 
 dbInit().then(() => {
   ReactDOM.render(
@@ -15,10 +17,10 @@ dbInit().then(() => {
       <BrowserRouter basename={import.meta.env.BASE_URL}>
         <Routes>
           <Route path="/" element={<App />}>
-            <Route index element={<TodoList />} />
-            <Route path="/:todoId" element={<TodoItem />} />
-            <Route path="/sync" element={<Sync />} />
+            <Route index element={<Index />} />
             <Route path="/about" element={<About />} />
+            <Route path="/sync" element={<Sync />} />
+            <Route path="/todo/:todo-id" element={<TodoItem />} />
           </Route>
         </Routes>
       </BrowserRouter>
