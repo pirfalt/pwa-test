@@ -10,6 +10,7 @@ import TodoItem from "./pages/todo/[todo-id]";
 import { init as dbInit } from "./util/db";
 
 import "./index.css";
+import "./base.css";
 
 dbInit().then(() => {
   ReactDOM.render(
