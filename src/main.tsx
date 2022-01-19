@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import App from "./app";
+import App from "./App";
 import Index from "./pages/index";
 import About from "./pages/about";
 import Sync from "./pages/sync";
