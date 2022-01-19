@@ -1,4 +1,4 @@
-import Camera from "../components/camera";
+import Camera from "../components/Camera";
 
 import classes from "./about.module.css";
 

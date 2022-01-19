@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import useDevice from "../hooks/useDevice";
 
-import classes from "./camera.module.css";
+import classes from "./Camera.module.css";
 
 export default function Camera() {
   const { devices, activeDeviceIds, setConstraints, stream, error } = useDevice(

@@ -1,6 +1,9 @@
-import classes from "./todo-item.module.css";
+import classes from "./TodoItem.module.css";
 
-export default function TodoItem(props: { todoId: string }) {
+export default function TodoItem(props: {
+  todoId: string;
+  backgroundColor?: string;
+}) {
   return (
     <form
       onSubmit={(e) => {

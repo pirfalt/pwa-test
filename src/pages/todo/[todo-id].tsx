@@ -1,4 +1,4 @@
-import TodoItem from "../../components/todo-item";
+import TodoItem from "../../components/TodoItem";
 import { useParams } from "react-router";
 
 export default function TodoId() {
