@@ -1,0 +1,41 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  padding-bottom: var(--spacer-block);
+}
+
+.camera {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--spacer-block);
+}
+.camera img {
+  display: none;
+}
+
+.video {
+  position: fixed;
+  max-width: none;
+  max-height: none;
+  min-width: 100%;
+  min-height: 100%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+}
+
+.select {
+}
+
+.capture {
+}
+
+.back {
+}

@@ -7,6 +7,7 @@ import Index from "./pages/index";
 import About from "./pages/about";
 import Sync from "./pages/sync";
 import TodoItem from "./pages/todo/[todo-id]";
+import CameraPage from "./pages/camera";
 import { init as dbInit } from "./util/db";
 
 import "./index.css";
@@ -19,10 +20,11 @@ dbInit().then(() => {
         <Routes>
           <Route path="/" element={<App />}>
             <Route index element={<Index />} />
-            <Route path="/about" element={<About />} />
             <Route path="/sync" element={<Sync />} />
             <Route path="/todo/:todo-id" element={<TodoItem />} />
+            <Route path="/about" element={<About />} />
           </Route>
+          <Route path="/camera" element={<CameraPage />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>,
