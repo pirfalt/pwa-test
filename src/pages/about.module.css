@@ -1,8 +1,5 @@
-.About {
-  display: flex;
-  margin: 0;
-  gap: 0.25rem;
+.root {
+  display: grid;
   height: 100%;
-  justify-content: center;
-  align-items: center;
+  width: 100%;
 }

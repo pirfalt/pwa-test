@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Menu from "../components/Menu/Menu";
 import db, { tasksKey } from "../util/db";
 import { createClassName } from "../util/util";
 
@@ -40,15 +41,15 @@ export default function TodoList() {
   };
 
   return (
-    <ol className={classes["Todo-list"]}>
+    <ol className={c("Todo-list")}>
       {tasks.map((item, i) => {
         return (
-          <li key={i} className={classes["Todo-list-item"]}>
-            <div className={classes["Todo-row-box"]}>
-              <label className={classes["Todo-row-label"]}>
+          <li key={i} className={c("Todo-list-item")}>
+            <div className={c("Todo-row-box")}>
+              <label className={c("Todo-row-label")}>
                 <input
                   type="checkbox"
-                  className={classes["Todo-row-checkbox"]}
+                  className={c("Todo-row-checkbox")}
                   name={`${i}_${item.text}`}
                   checked={item.checked}
                   onChange={() => checkItem(i)}
@@ -56,7 +57,7 @@ export default function TodoList() {
                 {item.text}
               </label>
               <button
-                className={classes["Todo-row-button"]}
+                className={c("Todo-row-button")}
                 onClick={(e) => {
                   e.preventDefault();
                   removeItem(i);
@@ -75,9 +76,9 @@ export default function TodoList() {
 
 function InputRow(props: { addItem: (item: TodoItem) => void }) {
   return (
-    <li className={classes["Todo-list-item"]}>
+    <li className={c("Todo-list-item")}>
       <form
-        className={classes["Todo-input-box"]}
+        className={c("Todo-input-box")}
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -95,12 +96,12 @@ function InputRow(props: { addItem: (item: TodoItem) => void }) {
         }}
       >
         <input
-          className={classes["Todo-input-text"]}
+          className={c("Todo-input-text")}
           name="new-item"
           type="text"
           placeholder="New todo item..."
         />
-        <button type="submit" className={classes["Todo-input-button"]}>
+        <button type="submit" className={c("Todo-input-button")}>
           Add
         </button>
       </form>

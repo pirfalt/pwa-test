@@ -1,9 +1,16 @@
 import { useEffect, useRef, useState } from "react";
-import useDevice from "../hooks/useDevice";
+import useDevice from "../../hooks/useDevice";
+import { createClassName } from "../../util/util";
 
 import classes from "./Camera.module.css";
+const c = createClassName(classes);
 
-export default function Camera() {
+export default function Camera(props: {
+  className?: string;
+  selectClassName?: string;
+  captureClassName?: string;
+  videoClassName?: string;
+}) {
   const { devices, activeDeviceIds, setConstraints, stream, error } = useDevice(
     {
       video: { facingMode: "user" },
@@ -57,9 +64,17 @@ export default function Camera() {
       </>
     );
   }
+
   return (
-    <>
+    <div className={props.className}>
+      <video
+        ref={videoRef}
+        className={props.videoClassName}
+        autoPlay
+        playsInline={true}
+      />
       <select
+        className={props.selectClassName}
         value={activeDevice?.deviceId}
         onChange={(e) =>
           setConstraints({
@@ -74,15 +89,11 @@ export default function Camera() {
           </option>
         ))}
       </select>
-      <video
-        ref={videoRef}
-        className={classes["video"]}
-        autoPlay
-        playsInline={true}
-      />
-      <button onClick={capture}>Capture</button>
+      <button className={props.captureClassName} onClick={capture}>
+        Capture
+      </button>
       <img src={picture} />
-    </>
+    </div>
   );
 }
 const canvasToBlob = (
