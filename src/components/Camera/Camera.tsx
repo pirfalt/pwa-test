@@ -10,6 +10,7 @@ export default function Camera(props: {
   selectClassName?: string;
   captureClassName?: string;
   videoClassName?: string;
+  onCapture?: (picture: Blob) => void;
 }) {
   const { devices, activeDeviceIds, setConstraints, stream, error } = useDevice(
     {
@@ -47,6 +48,7 @@ export default function Camera(props: {
 
     const blob = await canvasToBlob(canvas, "image/png");
     setPicture(URL.createObjectURL(blob));
+    props.onCapture?.(blob);
   };
 
   // Error
